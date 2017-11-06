@@ -16,8 +16,6 @@ namespace 許展維_Q4
         public Form1()
         {
             InitializeComponent();
-            int a = Convert.ToInt32('A');
-            string b = Convert.ToString(a, 2);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,8 +27,6 @@ namespace 許展維_Q4
             string devidend = string.Join("", Array.ConvertAll(arr, s => Convert.ToString(s, 2).PadLeft(8, '0')));
             devidend += "".PadLeft(16, '0');// 左移16位元
 
-            // devidend = "10011001110";// 1230
-            // G = 9;
             int mod = 0;
             for (int count = 0; count < devidend.Length; count++)
             {
@@ -40,7 +36,11 @@ namespace 許展維_Q4
                 mod += int.Parse(devidend.Substring(count, 1));
                 if (mod >= G) mod -= G;
             }
-
+            // 以1230 / 9 = 136...6 為例
+            // 讓 1230整除9有兩種方法
+            // 1. 因為1230多出6，所以就-6
+            // 2. 1230少3被9整除，所以就 +3 = +(9-6)
+            // 因為CRC要求是正整數，所以只能用第二個方法取CRC
             label1.Text = Convert.ToString(G - mod, 16).ToUpper();
         }
     }
